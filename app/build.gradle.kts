@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -15,13 +18,41 @@ android {
         versionName = "1.0"
     }
 
+    signingConfigs {
+        val keystoreProperties = Properties().apply {
+            load(FileInputStream(rootProject.file("keystore.properties")))
+        }
+        create("app") {
+            keyAlias = keystoreProperties.getProperty("appKeyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+            storeFile = file(keystoreProperties.getProperty("storeFile"))
+            storePassword = keystoreProperties.getProperty("storePassword")
+        }
+        create("upload") {
+            keyAlias = keystoreProperties.getProperty("uploadKeyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+            storeFile = file(keystoreProperties.getProperty("storeFile"))
+            storePassword = keystoreProperties.getProperty("storePassword")
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            val isTaskForGooglePlay = project.gradle.startParameter.taskNames.any { taskName ->
+                taskName.contains("bundle")
+            }
+            val config = when (isTaskForGooglePlay) {
+                true -> "upload"
+                else -> "app"
+            }
+            signingConfigs.findByName(config)?.let { signingConfig = it }
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+
         }
     }
     compileOptions {
