@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">autofill</string>
-    <string name="username">username</string>
+    <string name="confirm_password">confirm password</string>
     <string name="password">password</string>
+    <string name="sign_in_cta">click here to sign in</string>
+    <string name="sign_in_error">username or password is incorrect</string>
+    <string name="sign_out">sign out</string>
+    <string name="sign_up_cta">click here to sign up</string>
+    <string name="sign_up_error_passwords_do_not_match">passwords do not match</string>
+    <string name="sign_up_error_username_taken">username is taken</string>
+    <string name="username">username</string>
     <string name="submit">submit</string>
+    <string name="welcome_message">you have successfully signed in. please tap the sign out button to try again.</string>
+    <string name="welcome_title">welcome</string>
 </resources>
