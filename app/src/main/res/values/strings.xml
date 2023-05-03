@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">autofill</string>
+    <string name="asset_statements" translatable="false">
+    [{
+      \"include\": \"https://jeran.github.io/.well-known/assetlinks.json\"
+    }]
+    </string>
     <string name="confirm_password">confirm password</string>
     <string name="password">password</string>
     <string name="sign_in_cta">click here to sign in</string>
